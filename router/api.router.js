@@ -33,6 +33,7 @@ Routes definition
                 this.connection.query('INSERT INTO page SET ?', req.body, ( err, data ) => {
                     // Check query
                     if( err ){
+                        // Send error message
                         return res.json( {
                             url: req.originalUrl,
                             method: 'POST',
@@ -42,6 +43,7 @@ Routes definition
                         });
                     }
                     else{
+                        // Send success message
                         return res.json( {
                             url: req.originalUrl,
                             method: 'POST',
