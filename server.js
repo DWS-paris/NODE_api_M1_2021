@@ -36,23 +36,17 @@ Server definition
             // Start MYSQL connection
             this.mysql.connectDb()
             .then( connection => {
-                console.log(connection)
                 
-                // API route definition
-                this.server.get('/v1', ( req, res ) => {
-                    // Return JSON data
-                    return res.json( {
-                        msg: 'API Home page',
-                        data: null,
-                        err: null
-                    });
-                });
+                // Set up API router
+                const ApiRouterClass = require('./router/api.router');
+                const apiRouter = new ApiRouterClass();
+                this.server.use( '/v1', apiRouter.init() )
+                
+                // Set up Backoffice router
+                const BackofficeRouterClass = require('./router/backoffice.router');
+                const backofficeRouter = new BackofficeRouterClass();
+                this.server.use( '/', backofficeRouter.init() )
 
-                // Backoffice route definition
-                this.server.get('/', ( req, res ) => {
-                    // Render index.ejs file
-                    return res.render('index');
-                });
 
                 // Launch server
                 this.launch();
