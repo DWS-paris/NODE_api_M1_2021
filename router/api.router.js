@@ -3,6 +3,9 @@ Imports
 */
     // Node
     const express = require('express');
+
+    // Inner
+    const { createOne } = require('../controllers/page.controller');
 //
 
 /*  
@@ -28,32 +31,7 @@ Routes definition
             });
 
             // CRUD: route to Create data
-            this.router.post('/page', ( req, res ) => {
-                // Create data in the DB
-                this.connection.query('INSERT INTO page SET ?', req.body, ( err, data ) => {
-                    // Check query
-                    if( err ){
-                        // Send error message
-                        return res.json( {
-                            url: req.originalUrl,
-                            method: 'POST',
-                            msg: 'Data not created',
-                            data: null,
-                            err: err
-                        });
-                    }
-                    else{
-                        // Send success message
-                        return res.json( {
-                            url: req.originalUrl,
-                            method: 'POST',
-                            msg: 'Data created',
-                            data: data,
-                            err: null
-                        });
-                    }
-                })
-            })
+            this.router.post('/page', ( req, res ) => createOne(this.connection, req, res) );
 
             // CRUD: route to Read all data
             this.router.get('/page', ( req, res ) => {
