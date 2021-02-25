@@ -46,9 +46,26 @@ Controller definition
                     url: req.originalUrl,
                     method: 'GET',
                     msg: 'Data sended',
-                    data: data,
+                    data: data[0],
                     err: null
                 });
+            }
+        })
+    }
+
+    const updateOne = (connection, req, res) => {
+        connection.query(`
+        UPDATE ${req.params.endpoint} 
+        SET title="${req.body.title}", content="${req.body.content}"
+        WHERE id=${req.params.id}`
+        , ( err, data ) => {
+            // Check query
+            if( err ){
+                // Send error message
+                return res.redirect('/');
+            }
+            else{
+                return res.redirect('/');
             }
         })
     }
@@ -73,6 +90,7 @@ Export
     module.exports = {
         getHomePage,
         getUpdatePage,
+        updateOne,
         deleteOne
     }
 //

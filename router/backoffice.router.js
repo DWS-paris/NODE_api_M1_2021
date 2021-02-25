@@ -5,7 +5,7 @@ Imports
     const express = require('express');
 
     // Inner
-    const { getHomePage, getUpdatePage, deleteOne } = require('../controllers/backoffice.controller');
+    const { getHomePage, getUpdatePage, updateOne, deleteOne } = require('../controllers/backoffice.controller');
 //
 
 /*  
@@ -26,6 +26,9 @@ Routes definition
 
             // Delete one data
             this.router.post('/:endpoint/:id/delete', ( req, res ) => deleteOne(this.connection, req, res) );
+
+            // Update one data
+            this.router.post('/:endpoint/:id/update', ( req, res ) => updateOne(this.connection, req, res) );
         }
 
         init(){
