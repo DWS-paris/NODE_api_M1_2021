@@ -25,6 +25,27 @@ Server definition
             // Set server view engine
             this.server.set( 'view engine', 'ejs' );
 
+            // Start config
+            this.config();
+        }
+
+        config(){
+            // API route definition
+            this.server.get('/v1', ( req, res ) => {
+                // Return JSON data
+                return res.json( {
+                    msg: 'API Home page',
+                    data: null,
+                    err: null
+                });
+            });
+
+            // Backoffice route definition
+            this.server.get('/', ( req, res ) => {
+                // Render index.ejs file
+                return res.render('index');
+            });
+
             // Launch server
             this.launch();
         }
