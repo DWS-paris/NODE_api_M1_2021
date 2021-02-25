@@ -9,7 +9,11 @@
                     <li>
                         <ul class="flexBox spaceBetween">
                             <li>Edit</li>
-                            <li>Delete</li>
+                            <li>
+                                <form action="/page/<%- item.id %>/delete" method="POST">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>

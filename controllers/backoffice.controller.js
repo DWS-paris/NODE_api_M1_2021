@@ -26,12 +26,26 @@ Controller definition
             }
         })
     }
+
+    const deleteOne = (connection, req, res) => {
+        connection.query(`DELETE FROM ${req.params.endpoint} WHERE id=${req.params.id}`, ( err, data ) => {
+            // Check query
+            if( err ){
+                // Send error message
+                return res.redirect('/');
+            }
+            else{
+                return res.redirect('/');
+            }
+        })
+    }
 //
 
 /* 
 Export
 */
     module.exports = {
-        getHomePage
+        getHomePage,
+        deleteOne
     }
 //
