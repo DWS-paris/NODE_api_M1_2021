@@ -27,12 +27,129 @@ Controller definition
             }
         })
     }
+
+    const readAll = (connection, req, res) => {
+        // Create data in the DB
+        connection.query('SELECT * FROM page', ( err, data ) => {
+            // Check query
+            if( err ){
+                // Send error message
+                return res.json( {
+                    url: req.originalUrl,
+                    method: 'GET',
+                    msg: 'Data not sended',
+                    data: null,
+                    err: err
+                });
+            }
+            else{
+                // Send success message
+                return res.json( {
+                    url: req.originalUrl,
+                    method: 'GET',
+                    msg: 'Data sended',
+                    data: data,
+                    err: null
+                });
+            }
+        })
+    }
+
+    const readOne = (connection, req, res) => {
+        // Create data in the DB
+        connection.query(`SELECT * FROM page WHERE id=${req.params.id}`, ( err, data ) => {
+            // Check query
+            if( err ){
+                // Send error message
+                return res.json( {
+                    url: req.originalUrl,
+                    method: 'GET',
+                    msg: 'Data not sended',
+                    data: null,
+                    err: err
+                });
+            }
+            else{
+                // Send success message
+                return res.json( {
+                    url: req.originalUrl,
+                    method: 'GET',
+                    msg: 'Data sended',
+                    data: data[0],
+                    err: null
+                });
+            }
+        })
+    }
+
+    const updateOne = (connection, req, res) => {
+        // Create data in the DB
+        connection.query(`
+        UPDATE page 
+        SET title="${req.body.title}", content="${req.body.content}"
+        WHERE id=${req.params.id}`
+        , ( err, data ) => {
+            // Check query
+            if( err ){
+                // Send error message
+                return res.json( {
+                    url: req.originalUrl,
+                    method: 'PUT',
+                    msg: 'Data not updated',
+                    data: null,
+                    err: err
+                });
+            }
+            else{
+                // Send success message
+                return res.json( {
+                    url: req.originalUrl,
+                    method: 'PUT',
+                    msg: 'Data updated',
+                    data: data,
+                    err: null
+                });
+            }
+        })
+    }
+
+    const deleteOne = (connection, req, res) => {
+        // Create data in the DB
+        connection.query(`DELETE FROM page WHERE id=${req.params.id}`
+        , ( err, data ) => {
+            // Check query
+            if( err ){
+                // Send error message
+                return res.json( {
+                    url: req.originalUrl,
+                    method: 'DELETE',
+                    msg: 'Data not deleted',
+                    data: null,
+                    err: err
+                });
+            }
+            else{
+                // Send success message
+                return res.json( {
+                    url: req.originalUrl,
+                    method: 'DELETE',
+                    msg: 'Data deleted',
+                    data: data,
+                    err: null
+                });
+            }
+        })
+    }
 //
 
 /* 
 Export
 */
     module.exports = {
-        createOne
+        createOne,
+        readAll,
+        readOne,
+        updateOne,
+        deleteOne
     }
 //

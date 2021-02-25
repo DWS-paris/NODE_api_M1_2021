@@ -5,7 +5,7 @@ Imports
     const express = require('express');
 
     // Inner
-    const { createOne } = require('../controllers/page.controller');
+    const { createOne, readAll, readOne, updateOne, deleteOne } = require('../controllers/page.controller');
 //
 
 /*  
@@ -34,48 +34,16 @@ Routes definition
             this.router.post('/page', ( req, res ) => createOne(this.connection, req, res) );
 
             // CRUD: route to Read all data
-            this.router.get('/page', ( req, res ) => {
-                return res.json( {
-                    url: req.originalUrl,
-                    method: 'GET',
-                    msg: 'Data send',
-                    data: null,
-                    err: null
-                });
-            })
+            this.router.get('/page', ( req, res ) => readAll(this.connection, req, res) );
 
             // CRUD: route to Read one data
-            this.router.get('/page/:id', ( req, res ) => {
-                return res.json( {
-                    url: req.originalUrl,
-                    method: 'GET',
-                    msg: 'Data send',
-                    data: null,
-                    err: null
-                });
-            })
+            this.router.get('/page/:id', ( req, res ) => readOne(this.connection, req, res) )
 
             // CRUD: route to Update one data
-            this.router.put('/page/:id', ( req, res ) => {
-                return res.json( {
-                    url: req.originalUrl,
-                    method: 'PUT',
-                    msg: 'Data updated',
-                    data: null,
-                    err: null
-                });
-            })
+            this.router.put('/page/:id', ( req, res ) => updateOne(this.connection, req, res))
 
             // CRUD: route to Delete one data
-            this.router.delete('/page/:id', ( req, res ) => {
-                return res.json( {
-                    url: req.originalUrl,
-                    method: 'DELETE',
-                    msg: 'Data deleted',
-                    data: null,
-                    err: null
-                });
-            })
+            this.router.delete('/page/:id', ( req, res ) => deleteOne(this.connection, req, res))
         }
 
         init(){
