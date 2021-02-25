@@ -1,6 +1,21 @@
-<!-- Include static file -->
 <%- include('statics/header') -%>
 
-<main></main>
+<main>
+    <ul class="noListStyle">
+        <% for(let item of data) { %>
+            <li>
+                <ul class="flexBox spaceBetween">
+                    <li><%- item.title %></li>
+                    <li>
+                        <ul class="flexBox spaceBetween">
+                            <li>Edit</li>
+                            <li>Delete</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        <% } %>
+    </ul>
+</main>
 
 <%- include('statics/footer') -%>

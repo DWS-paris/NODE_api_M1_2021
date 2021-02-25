@@ -2,7 +2,7 @@
 Controller definition
 */
     const getHomePage = (connection, req, res) => {
-        connection.query(`SELECT * FROM page`, ( err, data ) => {
+        connection.query(`SELECT id, title FROM page`, ( err, data ) => {
             // Check query
             if( err ){
                 // Send error message
