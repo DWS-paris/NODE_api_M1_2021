@@ -3,7 +3,7 @@ Controller definition
 */
     const createOne = (connection, req, res) => {
         // Create data in the DB
-        connection.query('INSERT INTO page SET ?', req.body, ( err, data ) => {
+        connection.query(`INSERT INTO ${req.params.endpoint} SET ?`, req.body, ( err, data ) => {
             // Check query
             if( err ){
                 // Send error message
@@ -30,7 +30,7 @@ Controller definition
 
     const readAll = (connection, req, res) => {
         // Create data in the DB
-        connection.query('SELECT * FROM page', ( err, data ) => {
+        connection.query(`SELECT * FROM ${req.params.endpoint}`, ( err, data ) => {
             // Check query
             if( err ){
                 // Send error message
@@ -57,7 +57,7 @@ Controller definition
 
     const readOne = (connection, req, res) => {
         // Create data in the DB
-        connection.query(`SELECT * FROM page WHERE id=${req.params.id}`, ( err, data ) => {
+        connection.query(`SELECT * FROM ${req.params.endpoint} WHERE id=${req.params.id}`, ( err, data ) => {
             // Check query
             if( err ){
                 // Send error message
@@ -85,7 +85,7 @@ Controller definition
     const updateOne = (connection, req, res) => {
         // Create data in the DB
         connection.query(`
-        UPDATE page 
+        UPDATE ${req.params.endpoint} 
         SET title="${req.body.title}", content="${req.body.content}"
         WHERE id=${req.params.id}`
         , ( err, data ) => {

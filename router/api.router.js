@@ -5,7 +5,7 @@ Imports
     const express = require('express');
 
     // Inner
-    const { createOne, readAll, readOne, updateOne, deleteOne } = require('../controllers/page.controller');
+    const { createOne, readAll, readOne, updateOne, deleteOne } = require('../controllers/crud.controller');
 //
 
 /*  
@@ -31,19 +31,19 @@ Routes definition
             });
 
             // CRUD: route to Create data
-            this.router.post('/page', ( req, res ) => createOne(this.connection, req, res) );
+            this.router.post('/:endpoint', ( req, res ) => createOne(this.connection, req, res) );
 
             // CRUD: route to Read all data
-            this.router.get('/page', ( req, res ) => readAll(this.connection, req, res) );
+            this.router.get('/:endpoint', ( req, res ) => readAll(this.connection, req, res) );
 
             // CRUD: route to Read one data
-            this.router.get('/page/:id', ( req, res ) => readOne(this.connection, req, res) )
+            this.router.get('/:endpoint/:id', ( req, res ) => readOne(this.connection, req, res) );
 
             // CRUD: route to Update one data
-            this.router.put('/page/:id', ( req, res ) => updateOne(this.connection, req, res))
+            this.router.put('/:endpoint/:id', ( req, res ) => updateOne(this.connection, req, res));
 
             // CRUD: route to Delete one data
-            this.router.delete('/page/:id', ( req, res ) => deleteOne(this.connection, req, res))
+            this.router.delete('/:endpoint/:id', ( req, res ) => deleteOne(this.connection, req, res));
         }
 
         init(){
