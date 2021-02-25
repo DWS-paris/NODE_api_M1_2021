@@ -3,22 +3,23 @@ Imports
 */
     // Node
     const express = require('express');
+
+    // Inner
+    const { getHomePage } = require('../controllers/backoffice.controller');
 //
 
 /*  
 Routes definition
 */
     class RouterClass {
-        constructor( ){
+        constructor({ connection } ){
            this.router = express.Router();
+           this.connection = connection;
         }
 
         routes(){
             // Backoffice route definition
-            this.router.get('/', ( req, res ) => {
-                // Render index.ejs file
-                return res.render('index');
-            });
+            this.router.get('/', ( req, res ) => getHomePage(this.connection, req, res) );
         }
 
         init(){

@@ -49,7 +49,7 @@ Server definition
                 
                 // Set up Backoffice router
                 const BackofficeRouterClass = require('./router/backoffice.router');
-                const backofficeRouter = new BackofficeRouterClass();
+                const backofficeRouter = new BackofficeRouterClass( { connection } );
                 this.server.use( '/', backofficeRouter.init() )
 
                 // Launch server
