@@ -29,13 +29,28 @@ Routes definition
 
             // CRUD: route to Create data
             this.router.post('/page', ( req, res ) => {
-                return res.json( {
-                    url: req.originalUrl,
-                    method: 'POST',
-                    msg: 'Data created',
-                    data: req.body,
-                    err: null
-                });
+                // Create data in the DB
+                this.connection.query('INSERT INTO page SET ?', req.body, ( err, data ) => {
+                    // Check query
+                    if( err ){
+                        return res.json( {
+                            url: req.originalUrl,
+                            method: 'POST',
+                            msg: 'Data not created',
+                            data: null,
+                            err: err
+                        });
+                    }
+                    else{
+                        return res.json( {
+                            url: req.originalUrl,
+                            method: 'POST',
+                            msg: 'Data created',
+                            data: data,
+                            err: null
+                        });
+                    }
+                })
             })
 
             // CRUD: route to Read all data
