@@ -33,7 +33,7 @@ Routes definition
                     url: req.originalUrl,
                     method: 'POST',
                     msg: 'Data created',
-                    data: null,
+                    data: req.body,
                     err: null
                 });
             })

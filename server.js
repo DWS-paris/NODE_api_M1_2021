@@ -4,6 +4,7 @@ Imports
     require('dotenv').config(); //=> https://www.npmjs.com/package/dotenv
     const express = require('express'); //=> https://www.npmjs.com/package/express
     const path = require('path'); //=> https://www.npmjs.com/package/path
+    const bodyParser = require('body-parser'); //=> https://www.npmjs.com/package/body-parser
 
     const MYSQLClass = require('./services/MYSQLclass');
 //
@@ -27,6 +28,10 @@ Server definition
 
             // Set server view engine
             this.server.set( 'view engine', 'ejs' );
+
+            // Set body parser
+            this.server.use(bodyParser.json({limit: '20mb'}));
+            this.server.use(bodyParser.urlencoded({ extended: true }));
 
             // Start config
             this.config();
