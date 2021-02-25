@@ -9,8 +9,9 @@ Imports
 Routes definition
 */
     class RouterClass {
-        constructor( ){
+        constructor( { connection } ){
            this.router = express.Router();
+           this.connection = connection;
         }
 
         routes(){

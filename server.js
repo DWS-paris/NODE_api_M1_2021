@@ -39,7 +39,7 @@ Server definition
                 
                 // Set up API router
                 const ApiRouterClass = require('./router/api.router');
-                const apiRouter = new ApiRouterClass();
+                const apiRouter = new ApiRouterClass( { connection } );
                 this.server.use( '/v1', apiRouter.init() )
                 
                 // Set up Backoffice router
@@ -47,15 +47,12 @@ Server definition
                 const backofficeRouter = new BackofficeRouterClass();
                 this.server.use( '/', backofficeRouter.init() )
 
-
                 // Launch server
                 this.launch();
             })
             .catch( sqlError => {
                 console.log(`SQL error: ${sqlError}`)
             })
-
-            
         }
 
         launch(){
