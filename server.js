@@ -3,6 +3,7 @@ Imports
 */
     require('dotenv').config(); //=> https://www.npmjs.com/package/dotenv
     const express = require('express'); //=> https://www.npmjs.com/package/express
+    const path = require('path'); //=> https://www.npmjs.com/package/path
 //
 
 
@@ -14,6 +15,18 @@ Server definition
         constructor(){
             this.server = express();
             this.port = process.env.PORT;
+        }
+
+        init(){
+            // Static path configuration
+            this.server.set( 'views', __dirname + '/www' );
+            this.server.use( express.static(path.join(__dirname, 'www')) );
+
+            // Set server view engine
+            this.server.set( 'view engine', 'ejs' );
+
+            // Launch server
+            this.launch();
         }
 
         launch(){
@@ -32,5 +45,5 @@ Server definition
 Start server
 */
     const MyServer = new ServerClass();
-    MyServer.launch();
+    MyServer.init();
 //
