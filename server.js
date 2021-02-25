@@ -4,6 +4,8 @@ Imports
     require('dotenv').config(); //=> https://www.npmjs.com/package/dotenv
     const express = require('express'); //=> https://www.npmjs.com/package/express
     const path = require('path'); //=> https://www.npmjs.com/package/path
+
+    const MYSQLClass = require('./services/MYSQLclass');
 //
 
 
@@ -15,6 +17,7 @@ Server definition
         constructor(){
             this.server = express();
             this.port = process.env.PORT;
+            this.mysql = new MYSQLClass();
         }
 
         init(){
@@ -30,24 +33,35 @@ Server definition
         }
 
         config(){
-            // API route definition
-            this.server.get('/v1', ( req, res ) => {
-                // Return JSON data
-                return res.json( {
-                    msg: 'API Home page',
-                    data: null,
-                    err: null
+            // Start MYSQL connection
+            this.mysql.connectDb()
+            .then( connection => {
+                console.log(connection)
+                
+                // API route definition
+                this.server.get('/v1', ( req, res ) => {
+                    // Return JSON data
+                    return res.json( {
+                        msg: 'API Home page',
+                        data: null,
+                        err: null
+                    });
                 });
-            });
 
-            // Backoffice route definition
-            this.server.get('/', ( req, res ) => {
-                // Render index.ejs file
-                return res.render('index');
-            });
+                // Backoffice route definition
+                this.server.get('/', ( req, res ) => {
+                    // Render index.ejs file
+                    return res.render('index');
+                });
 
-            // Launch server
-            this.launch();
+                // Launch server
+                this.launch();
+            })
+            .catch( sqlError => {
+                console.log(`SQL error: ${sqlError}`)
+            })
+
+            
         }
 
         launch(){
